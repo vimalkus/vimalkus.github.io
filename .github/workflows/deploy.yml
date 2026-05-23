@@ -11,24 +11,26 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v4
+    - uses: wranders/markdown-to-pages-action@v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        files: |-
+          docs/API_README.md
+    - uses: actions/upload-pages-artifact@v3
+      with:
+        path: dist
 
-      - name: Convert Markdown to HTML
-        uses: wranders/markdown-to-pages-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          files: "docs/API_README.md" # Replace with your specific .md file name
-          out_path: "dist"
-
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: "dist"
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+    - uses: actions/deploy-pages@v4
+      id: deployment

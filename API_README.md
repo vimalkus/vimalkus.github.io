@@ -1,5 +1,4 @@
-# CloudSyncHub Tasks API
-[QuickStart Guide](./API_README)
+# CloudSyncHub Tasks API QuickStart Guide
 
 ## Overview
 The CloudSyncHub Tasks API enables developers and system integrators to create, manage, and monitor tasks programmatically within the CloudSyncHub platform. It provides secure, tenant‑aware access to task resources and supports seamless integration with cloud‑native workflows.

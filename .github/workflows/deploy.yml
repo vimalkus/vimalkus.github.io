@@ -20,7 +20,7 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         files: |-
           README.md
-          ./docs/API_README.md
+          docs/API_README.md
     - uses: actions/upload-pages-artifact@v3
       with:
         path: dist
